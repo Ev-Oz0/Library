@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Language" content="en" />
+    <title>Perpustakaan Digital</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="navbar-main">
+        <!-- KIRI: hamburger + logo -->
+        <div class="nav-left">
+          <button
+            class="menu-toggle"
+            aria-label="Toggle navigation"
+            type="button"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <img src="logo.png" alt="Logo" className="logo" class="logo" />
+          <span class="logo-text">
+            Perpustakaan <br />
+            Digital
+          </span>
+        </div>
+
+        <!-- TENGAH: menu desktop -->
+        <ul class="nav-links-desktop">
+          <li>Home</li>
+          <li>Products</li>
+          <li>Features</li>
+          <li>About</li>
+        </ul>
+
+        <!-- KANAN: search -->
+        <div class="nav-right">
+          <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search book..." />
+            <div id="suggestions" class="suggestions"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MENU MOBILE FULLSCREEN -->
+      <div class="nav-mobile-overlay">
+        <div class="nav-mobile-inner">
+          <div class="nav-mobile-top">
+            <img src="logo.png" alt="Logo" class="logo mobile-logo" />
+            <div class="mobile-brand">
+              <span>Perpustakaan</span>
+              <span>Digital</span>
+            </div>
+
+            <button
+              class="menu-toggle mobile-toggle"
+              aria-label="Close navigation"
+              type="button"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+
+          <div class="nav-mobile-search">
+            <div class="search-box mobile-search-box">
+              <input
+                type="text"
+                id="search-input-mobile"
+                placeholder="Search book..."
+              />
+            </div>
+          </div>
+
+          <ul class="nav-links-mobile">
+            <li>Home</li>
+            <li>Products</li>
+            <li>Features</li>
+            <li>About</li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+      <h1>MA MIFTAHUL JANNAH</h1>
+      <p>
+        Perpustakaan digital dengan koleksi buku pelajaran yang dapat diakses
+        kapan saja.
+      </p>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <main>
+      <section class="book-section">
+        <h2>Daftar Buku</h2>
+
+        <!-- LOADING ANIMATION -->
+        <div id="loading" class="loading-overlay">
+          <div class="spinner"></div>
+          <p>Memuat data buku...</p>
+        </div>
+
+        <div id="book-list" class="book-list"></div>
+      </section>
+    </main>
+
+    <!-- MODAL DETAIL BUKU -->
+    <div id="book-modal" class="book-modal">
+      <div class="book-modal-dialog">
+        <button class="book-modal-close" aria-label="Tutup detail buku">
+          &times;
+        </button>
+
+        <div class="book-modal-header">
+          <img id="modal-cover" class="book-modal-cover" src="" alt="" />
+          <div class="book-modal-meta">
+            <h3 id="modal-title"></h3>
+            <p id="modal-author"></p>
+            <p id="modal-year"></p>
+          </div>
+        </div>
+
+        <div class="book-modal-body">
+          <button id="read-book-btn" class="read-book-btn">Buka Buku</button>
+
+          <h4>Deskripsi</h4>
+          <p id="modal-description"></p>
+
+          <h4>Subjek</h4>
+          <div id="modal-subjects" class="modal-tags"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOK READER MODAL (COVER + HALAMAN TEKS, FLIP MOUSE + PANAH) -->
+    <div id="reader-modal" class="reader-modal">
+      <div class="reader-dialog">
+        <button class="reader-close" aria-label="Tutup pembaca buku">
+          &times;
+        </button>
+
+        <div class="reader-warning">
+          <strong>PERINGATAN:</strong> Ini bukan isi buku asli. Konten hanya
+          contoh karena perlindungan hak cipta.
+        </div>
+
+        <h2 id="reader-title"></h2>
+
+        <div class="book-view">
+          <button class="page-btn prev" id="page-prev">&#10094;</button>
+
+          <div class="book-pages">
+            <div class="book-page left">
+              <div class="page-inner" id="page-left"></div>
+            </div>
+            <div class="book-page right">
+              <div class="page-inner" id="page-right"></div>
+            </div>
+          </div>
+
+          <button class="page-btn next" id="page-next">&#10095;</button>
+        </div>
+
+        <div class="page-indicator">
+          Halaman <span id="page-number">1</span> /
+          <span id="page-total">1</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
