@@ -1,18 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Language" content="en" />
-    <title>Perpustakaan Digital</title>
+    <title>Perpustakaan Digital Pro - MA Miftahul Jannah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <!-- NAVBAR -->
+    <div id="loading" class="loading-overlay">
+      <div class="spinner"></div>
+      <span>Memuat koleksi buku...</span>
+    </div>
+
     <nav class="navbar">
       <div class="navbar-main">
-        <!-- KIRI: hamburger + logo -->
         <div class="nav-left">
           <button
             class="menu-toggle"
@@ -23,140 +35,153 @@
             <span></span>
             <span></span>
           </button>
-
-          <img src="logo.png" alt="Logo" className="logo" class="logo" />
-          <span class="logo-text">
-            Perpustakaan <br />
-            Digital
-          </span>
+          <img src="logo.png" alt="Logo" class="logo" />
+          <span class="logo-text">Perpustakaan<br />Digital</span>
         </div>
 
-        <!-- TENGAH: menu desktop -->
         <ul class="nav-links-desktop">
-          <li>Home</li>
-          <li>Products</li>
-          <li>Features</li>
-          <li>About</li>
+          <li class="active" data-target="all">Semua Buku</li>
+          <li data-target="Sains">Sains</li>
+          <li data-target="Matematika">Matematika</li>
+          <li data-target="Sejarah">Sejarah</li>
         </ul>
 
-        <!-- KANAN: search -->
         <div class="nav-right">
           <div class="search-box">
-            <input type="text" id="search-input" placeholder="Search book..." />
+            <i class="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Cari judul atau subjek..."
+              autocomplete="off"
+            />
             <div id="suggestions" class="suggestions"></div>
           </div>
+          <button
+            id="theme-toggle"
+            class="theme-toggle-btn"
+            aria-label="Ubah Tema"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
         </div>
       </div>
 
-      <!-- MENU MOBILE FULLSCREEN -->
       <div class="nav-mobile-overlay">
-        <div class="nav-mobile-inner">
-          <div class="nav-mobile-top">
-            <img src="logo.png" alt="Logo" class="logo mobile-logo" />
-            <div class="mobile-brand">
-              <span>Perpustakaan</span>
-              <span>Digital</span>
-            </div>
-
-            <button
-              class="menu-toggle mobile-toggle"
-              aria-label="Close navigation"
-              type="button"
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          </div>
-
-          <div class="nav-mobile-search">
-            <div class="search-box mobile-search-box">
-              <input
-                type="text"
-                id="search-input-mobile"
-                placeholder="Search book..."
-              />
-            </div>
-          </div>
-
-          <ul class="nav-links-mobile">
-            <li>Home</li>
-            <li>Products</li>
-            <li>Features</li>
-            <li>About</li>
-          </ul>
-        </div>
+        <ul class="nav-links-mobile">
+          <li class="active" data-target="all">Semua Buku</li>
+          <li data-target="Sains">Sains</li>
+          <li data-target="Matematika">Matematika</li>
+          <li data-target="Sejarah">Sejarah</li>
+        </ul>
       </div>
     </nav>
 
-    <!-- HERO -->
     <header class="hero">
-      <h1>MA MIFTAHUL JANNAH</h1>
-      <p>
-        Perpustakaan digital dengan koleksi buku pelajaran yang dapat diakses
-        kapan saja.
-      </p>
+      <div class="hero-content">
+        <h1>E-Library MA Miftahul Jannah</h1>
+        <p>
+          Akses ke ratusan referensi sains, teknologi, dan literatur akademik
+          modern dalam genggaman interaktif digital.
+        </p>
+      </div>
     </header>
 
-    <!-- KONTEN UTAMA -->
-    <main>
-      <section class="book-section">
-        <h2>Daftar Buku</h2>
-
-        <!-- LOADING ANIMATION -->
-        <div id="loading" class="loading-overlay">
-          <div class="spinner"></div>
-          <p>Memuat data buku...</p>
+    <section class="control-bar">
+      <div class="control-wrapper">
+        <div class="filter-info">
+          <span id="book-count">Menampilkan 0 Buku</span>
         </div>
-
-        <div id="book-list" class="book-list"></div>
-      </section>
-    </main>
-
-    <!-- MODAL DETAIL BUKU -->
-    <div id="book-modal" class="book-modal">
-      <div class="book-modal-dialog">
-        <button class="book-modal-close" aria-label="Tutup detail buku">
-          &times;
-        </button>
-
-        <div class="book-modal-header">
-          <img id="modal-cover" class="book-modal-cover" src="" alt="" />
-          <div class="book-modal-meta">
-            <h3 id="modal-title"></h3>
-            <p id="modal-author"></p>
-            <p id="modal-year"></p>
+        <div class="control-actions">
+          <div class="select-wrapper">
+            <i class="fas fa-sort-amount-down"></i>
+            <select id="sort-books">
+              <option value="default">Urutkan: Default</option>
+              <option value="title-az">Judul (A - Z)</option>
+              <option value="title-za">Judul (Z - A)</option>
+              <option value="year-new">Tahun: Terbaru</option>
+              <option value="year-old">Tahun: Terlama</option>
+            </select>
           </div>
         </div>
+      </div>
+    </section>
 
+    <main class="book-section">
+      <div id="skeleton-container" class="book-list">
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line line1"></div>
+          <div class="skeleton-line line2"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line line1"></div>
+          <div class="skeleton-line line2"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line line1"></div>
+          <div class="skeleton-line line2"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line line1"></div>
+          <div class="skeleton-line line2"></div>
+        </div>
+      </div>
+
+      <div id="book-list" class="book-list" style="display: none"></div>
+    </main>
+
+    <div id="book-modal" class="book-modal">
+      <div class="book-modal-dialog">
+        <button class="book-modal-close">&times;</button>
+        <div class="book-modal-header">
+          <img
+            id="modal-cover"
+            src=""
+            alt="Cover Buku"
+            class="book-modal-cover"
+          />
+          <div class="book-modal-meta">
+            <h3 id="modal-title"></h3>
+            <p>
+              <i class="fas fa-user-edit"></i> <strong>Penulis:</strong>
+              <span id="modal-author"></span>
+            </p>
+            <p>
+              <i class="fas fa-calendar-alt"></i> <strong>Tahun Terbit:</strong>
+              <span id="modal-year"></span>
+            </p>
+          </div>
+        </div>
         <div class="book-modal-body">
-          <button id="read-book-btn" class="read-book-btn">Buka Buku</button>
-
+          <button id="read-book-btn" class="read-book-btn">
+            <i class="fas fa-book-reader"></i> Buka Buku
+          </button>
           <h4>Deskripsi</h4>
           <p id="modal-description"></p>
-
-          <h4>Subjek</h4>
+          <h4>Kategori / Subjek</h4>
           <div id="modal-subjects" class="modal-tags"></div>
         </div>
       </div>
     </div>
 
-    <!-- BOOK READER MODAL (COVER + HALAMAN TEKS, FLIP MOUSE + PANAH) -->
     <div id="reader-modal" class="reader-modal">
       <div class="reader-dialog">
-        <button class="reader-close" aria-label="Tutup pembaca buku">
-          &times;
-        </button>
-
+        <button class="reader-close">&times;</button>
         <div class="reader-warning">
-          <strong>PERINGATAN:</strong> Ini bukan isi buku asli. Konten hanya
-          contoh karena perlindungan hak cipta.
+          <i class="fas fa-exclamation-triangle"></i>
+          <strong>PROTEKSI HAK CIPTA:</strong> Akses simulasi terbatas untuk
+          lingkungan internal madrasah.
         </div>
-
         <h2 id="reader-title"></h2>
 
         <div class="book-view">
-          <button class="page-btn prev" id="page-prev">&#10094;</button>
+          <button class="page-btn prev" id="page-prev">
+            <i class="fas fa-chevron-left"></i>
+          </button>
 
           <div class="book-pages">
             <div class="book-page left">
@@ -167,13 +192,11 @@
             </div>
           </div>
 
-          <button class="page-btn next" id="page-next">&#10095;</button>
+          <button class="page-btn next" id="page-next">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
-
-        <div class="page-indicator">
-          Halaman <span id="page-number">1</span> /
-          <span id="page-total">1</span>
-        </div>
+        <div class="page-indicator" id="page-indicator">Halaman 1 dari 1</div>
       </div>
     </div>
 
